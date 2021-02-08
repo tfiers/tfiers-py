@@ -2,9 +2,16 @@
 IPython notebook initialisation.
 """
 
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# Give user feedback during slow imports.
+
 from preload import preload
 
 preload(["numpy", "matplotlib.pyplot", "pandas", "seaborn"])
+# ────────────────────────────────────────────────────────────────────────────────────╯
+
+
+#
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -26,18 +33,19 @@ try:
     import IPython
 
     ipython = IPython.get_ipython()
-    #   Will be None if running as a script (i.e. not in a notebook or IPython REPL).
+    #   Will be `None` if running as a script (i.e. not in a notebook or IPython REPL).
 
 except ImportError:
+    
     ipython = False
 
 if ipython:
 
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-    # The following allows you to edit the source code while running a notebook, and
-    # then use this updated code in the notebook, without having to restart the
-    # kernel on every code change. Note that this isn't foolproof, and kernel
-    # restarts may still be required.
+    # The following allows you to edit the source code of packages installed with `pip
+    # install -e` (or `--editable)`, while running a notebook, and then use this updated
+    # code in the notebook, without having to restart the kernel on every code change.
+    # This works well but not perfectly, so kernel restarts may still be required.
     ipython.run_line_magic("reload_ext", "autoreload")
     ipython.run_line_magic("autoreload", "2")
     # Exclude ourself from autoreloading, to avoid an exponential recursive import
@@ -52,7 +60,7 @@ if ipython:
     # run, IPython prints nothing, by default. Here, we make it print the result
     # (`21`). This avoids having to type an extra line with just `product` to see
     # the result. (Prints can still be suppressed by ending the line with `;`).
-    #
+
     from IPython.core.interactiveshell import InteractiveShell
 
     InteractiveShell.ast_node_interactivity = "last_expr_or_assign"
@@ -62,7 +70,7 @@ if ipython:
 
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     # Double resolution plots (without taking up twice as much screen space).
-    #
+
     from IPython.display import set_matplotlib_formats
 
     set_matplotlib_formats("retina")
@@ -100,18 +108,23 @@ set_print_precision()
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# Utility function from the Python standard library.
-# Given a function, returns a copy of that function, but with some arguments already
-# applied.
+# Misc imports
+
+# Useful higher-order function from the Python standard library. Given a function,
+# returns a copy of that function, but with some arguments already applied.
 from functools import partial
 
 # On import, augments Pandas dataframes with better wrangling API.
 # import janitor
 
-from .plot_util import figsize
+# Our own styling
 from . import plot_style
 
 plot_style.reset_and_apply()
+
+# kwargs for creating new figures with a desired aspect ratio & width.
+from .plot_util import figsize
+
 # ────────────────────────────────────────────────────────────────────────────────────╯
 
 
