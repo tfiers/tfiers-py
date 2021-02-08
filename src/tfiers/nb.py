@@ -50,7 +50,7 @@ if ipython:
     ipython.run_line_magic("autoreload", "2")
     # Exclude ourself from autoreloading, to avoid an exponential recursive import
     # monster.
-    ipython.run_line_magic("aimport", "-voltage_to_wiring_sim.notebook_init")
+    ipython.run_line_magic("aimport", "-tfiers.nb")
     # ────────────────────────────────────────────────────────────────────────────────╯
 
     #
