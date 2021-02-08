@@ -4,7 +4,7 @@ IPython notebook initialisation.
 
 from preload import preload
 
-preload(["numpy", "matplotlib.pyplot", "pandas", "seaborn", "janitor"])
+preload(["numpy", "matplotlib.pyplot", "pandas", "seaborn"])
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -101,7 +101,7 @@ set_print_precision()
 from functools import partial
 
 # On import, augments Pandas dataframes with better wrangling API.
-import janitor
+# import janitor
 
 from .plot_util import figsize
 from . import plot_style
@@ -115,5 +115,4 @@ plot_style.reset_and_apply()
 # Reassignment trick to stop PyCharm from complaining about unused imports:
 mpl, plt, sns, pd = mpl, plt, sns, pd
 partial = partial
-janitor = janitor
 figsize = figsize
