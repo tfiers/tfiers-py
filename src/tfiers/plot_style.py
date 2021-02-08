@@ -31,6 +31,8 @@ default_figsize = figsize()
 sizing = {
     "figure.figsize": default_figsize["figsize"],
     "figure.dpi": default_figsize["dpi"],
+    "savefig.dpi": 2 * default_figsize["dpi"],  # to emulate "retina" option in nb's.
+    "savefig.bbox": "tight",
     "xtick.labelsize": "small",  # Default is "medium"
     "ytick.labelsize": "small",
     "legend.fontsize": "small",  # Default is "medium"
