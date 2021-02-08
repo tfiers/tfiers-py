@@ -22,47 +22,52 @@ print("Imported `np`, `mpl`, `plt`, `sns`, `pd`")
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# The following allows you to edit the source code while running a notebook, and then
-# use this updated code in the notebook, without having to restart the kernel on every
-# code change.
-# Note that this isn't foolproof, and kernel restarts may still be required.
+try:
+    import IPython
 
-from IPython import get_ipython
+    ipython = IPython.get_ipython()
+    #   Will be None if running as a script (i.e. not in a notebook or IPython REPL).
 
-ipython = get_ipython()
-if ipython:  # Allow running as a script too (i.e. not in a notebook or REPL).
+except ImportError:
+    ipython = False
+
+if ipython:
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+    # The following allows you to edit the source code while running a notebook, and
+    # then use this updated code in the notebook, without having to restart the
+    # kernel on every code change. Note that this isn't foolproof, and kernel
+    # restarts may still be required.
     ipython.run_line_magic("reload_ext", "autoreload")
     ipython.run_line_magic("autoreload", "2")
     # Exclude ourself from autoreloading, to avoid an exponential recursive import
     # monster.
     ipython.run_line_magic("aimport", "-voltage_to_wiring_sim.notebook_init")
-# ────────────────────────────────────────────────────────────────────────────────────╯
+    # ────────────────────────────────────────────────────────────────────────────────╯
 
+    #
 
-#
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+    # If the last expression of a code cell is eg `product = 3 * 7`, and the cell is
+    # run, IPython prints nothing, by default. Here, we make it print the result
+    # (`21`). This avoids having to type an extra line with just `product` to see
+    # the result. (Prints can still be suppressed by ending the line with `;`).
+    #
+    from IPython.core.interactiveshell import InteractiveShell
 
+    InteractiveShell.ast_node_interactivity = "last_expr_or_assign"
+    # ────────────────────────────────────────────────────────────────────────────────╯
 
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# If the last expression of a code cell is eg `product = 3 * 7`, and the cell is run,
-# IPython prints nothing, by default. Here, we make it print the result (`21`).
-# This avoids having to type an extra line with just `product` to see the result.
-# (Prints can still be suppressed by ending the line with `;`).
+    #
 
-from IPython.core.interactiveshell import InteractiveShell
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+    # Double resolution plots (without taking up twice as much screen space).
+    #
+    from IPython.display import set_matplotlib_formats
 
-InteractiveShell.ast_node_interactivity = "last_expr_or_assign"
-# ────────────────────────────────────────────────────────────────────────────────────╯
+    set_matplotlib_formats("retina")
+    # ────────────────────────────────────────────────────────────────────────────────╯
 
-
-#
-
-
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# Double resolution plots (without taking up twice as much screen space).
-
-from IPython.display import set_matplotlib_formats
-
-set_matplotlib_formats("retina")
 # ────────────────────────────────────────────────────────────────────────────────────╯
 
 
