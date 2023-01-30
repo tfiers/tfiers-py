@@ -36,7 +36,7 @@ try:
     #   Will be `None` if running as a script (i.e. not in a notebook or IPython REPL).
 
 except ImportError:
-    
+
     ipython = False
 
 if ipython:
@@ -86,21 +86,23 @@ if ipython:
 # Print precision for (floating point) numbers.
 
 
-def set_print_precision(digits=4):
-    # The ".4G" format allows eg `array([1000, 1E+05, 0.111])`
-    number_format = f".{digits}G"
+def set_float_print_format(fmt=".4G"):
+    """
+    The ".4G" format allows eg `array([1000, 1E+05, 0.111])`.
+    Other ideas: "+.2f" for e.g. `+0.81`.
+    """
     # Print precision for plain Python numbers..
     if ipython:
-        ipython.run_line_magic("precision", "%" + number_format)
+        ipython.run_line_magic("precision", "%" + fmt)
     # ..and for NumPy.
     np.set_printoptions(
         formatter={
-            "float_kind": lambda x: format(x, number_format),
+            "float_kind": lambda x: format(x, fmt),
         }
     )
 
 
-set_print_precision()
+set_float_print_format()
 # ────────────────────────────────────────────────────────────────────────────────────╯
 
 
